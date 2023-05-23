@@ -1,0 +1,108 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidebar class="sidenav" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'push' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+        <mat-nav-list>
+            <div class="user">
+              <img src="../assets/IGKV_Logo_png_igmis.png" alt="admin logo" />
+              <p>
+                <span class="name">Kalpana Banjare</span><br>
+                <span claas="mail">HR</span>
+              </p>
+            </div>
+            <!-- <mat-divider></mat-divider> -->
+            <div class="menu-head">
+              <span>
+                <h4 routerLink="/Admin/admindesh">Dashboard</h4>
+              </span>
+            </div>
+            <mat-nav-list>
+  
+                <!-- button 2 -->
+                <mat-expansion-panel>
+                 <mat-expansion-panel-header>
+                   <mat-panel-title>
+                     <mat-icon>group</mat-icon>
+                     Employee
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <mat-nav-list>
+                   <a mat-list-item  routerLink="all-employee"> All Eployee</a>
+                   <a mat-list-item routerLink="project-assign">Work Assign</a>
+                   <a mat-list-item routerLink="add-emp">Add Employee</a>
+                   <a mat-list-item routerLink="post-detail">Add Post</a>
+                   <a mat-list-item routerLink="emp_post_map">Emp_Post Map</a>
+                 </mat-nav-list>
+               </mat-expansion-panel>
+             
+                <!-- button 2 -->
+                <mat-expansion-panel>
+                 <mat-expansion-panel-header>
+                   <mat-panel-title>
+                     <mat-icon>task</mat-icon>
+                     Task
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <mat-nav-list>
+                   <a mat-list-item  routerLink=""> Add Task</a>
+                   <a mat-list-item routerLink="">Task Deatail</a>
+                 </mat-nav-list>
+               </mat-expansion-panel>
+                
+               <!-- button 2 -->
+               <mat-expansion-panel>
+                 <mat-expansion-panel-header>
+                   <mat-panel-title>
+                     <mat-icon>bedge</mat-icon>
+                     Leave
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <mat-nav-list>
+                   <a mat-list-item >Leave Request</a>
+                 </mat-nav-list>
+               </mat-expansion-panel>
+             
+                <!-- button 2 -->
+                <mat-expansion-panel>
+                 <mat-expansion-panel-header>
+                   <mat-panel-title>
+                     <mat-icon>account_balance_wallet</mat-icon>
+                     Salary
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <mat-nav-list>
+                   <a mat-list-item >Salary</a>
+                 </mat-nav-list>
+               </mat-expansion-panel>
+               
+               
+                   </mat-nav-list>
+          </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        
+        
+                <mat-toolbar style="background-image: linear-gradient(90deg, #c2f0f2 0%, #b2d9eb 74%);" class="toolbar sticky-top nav ">
+                    <mat-icon (click)="sidebar.toggle()">menu</mat-icon>
+
+                      <div class="box ">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item ><mat-icon>person</mat-icon></button>
+                            <button mat-menu-item routerLink="/login"><mat-icon>logout</mat-icon></button>
+                          </mat-menu>
+                    </div>
+             
+                </mat-toolbar>
+       
+            <div class="main">
+                <router-outlet></router-outlet>
+            </div>
+        
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

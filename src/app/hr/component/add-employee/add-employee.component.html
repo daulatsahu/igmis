@@ -1,0 +1,172 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Add Employee</mat-card-title>
+        </mat-card-header>
+        <hr>
+        <form class="example-form">
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        First name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        Middle name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        Last name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        First name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        Middle name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="namewidth">
+                    <mat-label>
+                        Last name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>
+                        Father name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>
+                        Mother name*
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Guardian_Name</mat-label>
+                    <input matInput formControlName="Address" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label> Email_Id</mat-label>
+                    <input matInput formControlName="Email_id" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label> Mobile No</mat-label>
+                    <input matInput formControlName="Mobile_no" required>
+                </mat-form-field>
+                <!-- <div class="full-width"> <mat-label> Gender</mat-label>
+                    <mat-radio-group aria-label="Select an option" matNativeControl formControlName="gender">
+                        <mat-radio-button *ngFor="let gender of gender"
+                            [value]="gender.viewValue">{{gender.viewValue}}</mat-radio-button>
+                    </mat-radio-group>
+                </div> -->
+                <div class="full-width">
+                    <mat-form-field appearance="fill" class="namewidth">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Parmanent Address</mat-label>
+                    <input matInput formControlName="Address" required>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select Country</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select Country</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select State</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select State</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select District</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select District</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="full-width">
+                    <mat-form-field class="namewidth">
+                        <mat-label>Select Block</mat-label>
+                        <mat-select matNativeControl formControlName="State">
+                            <mat-option value="" selected>Select Block</mat-option>
+                            <mat-option>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="namewidth"><mat-label> Pin Code*</mat-label>
+                        <input matInput formControlName="username">
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Current Address</mat-label>
+                    <input matInput formControlName="Address" required>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select Country</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select Country</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select State</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select State</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="namewidth">
+                    <mat-label>Select District</mat-label>
+                    <mat-select matNativeControl formControlName="State">
+                        <mat-option value="" selected>Select District</mat-option>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="full-width">
+                    <mat-form-field class="namewidth">
+                        <mat-label>Select Block</mat-label>
+                        <mat-select matNativeControl formControlName="State">
+                            <mat-option value="" selected>Select Block</mat-option>
+                            <mat-option>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="namewidth"><mat-label> Pin Code*</mat-label>
+                        <input matInput formControlName="username">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <button mat-raised-button color="primary" class="btn-block" type="submit">
+                Submit
+            </button>
+        </form>
+    </mat-card>
+</div>

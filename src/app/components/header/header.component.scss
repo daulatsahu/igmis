@@ -1,0 +1,104 @@
+.example-spacer {
+    flex: 1 1 auto;
+  
+  }
+  .container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+  }
+  
+  .navbar-header{
+    margin-right: -10px;
+      margin-left: -10px;
+  }
+  .header-text{
+    justify-content: center;
+    text-align: center;
+    margin-top: 4%;
+    font-size: 30px;
+    font-family: 'Times New Roman';
+  }
+  
+  
+  .companyName{
+    font-size: 150%;
+  }
+  
+  .mat-toolbar{
+  height: 10vh;
+  z-index: 100;
+  background-image: linear-gradient(90deg, #6947ff 0%, #6947ff 74%);
+  
+  }
+  
+  div {
+    overflow: inherit;
+  }
+  
+  .mat-sidenav-container{
+  // background-color: lightskyblue;
+  min-height: 120vh !important;
+  }
+  
+  a{
+    text-decoration: none;
+    font-size: 90%;
+    white-space: normal;
+  }
+  
+  
+  .t-btn{
+  margin-right: 6px;
+  }
+  
+  button{
+    font-size: 110%;
+    min-width: min-content;
+  }
+  
+  .example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-sidenav-content{
+      font-size: 200%;
+       text-align: center;
+  }
+  
+  mat-sidenav {
+    width:200px;
+    border-right: none;
+    background: rgb(124, 147, 195);
+    color: white;
+    padding:16px;
+    text-align: center;
+  }
+  
+  
+  .menu-button{
+  width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+    
+    // mat-icon{
+    //     margin-right: 8px;
+    // }
+  }
+  
+  .nav{
+  position: sticky;
+  top: 0;
+  }
+  
+  .main-item{
+   background-color:#3a49ce;
+  }

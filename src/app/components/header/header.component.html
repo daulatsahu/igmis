@@ -1,0 +1,50 @@
+<div class="container-fluid" >
+
+    <!-- *ngIf="menutype==='default'" -->
+      <div class="navbar-header">
+        <a class="navbar-brand site-logo" href="">
+          <img routerLink="/home" class="hidden-xs  img-responsive" style="max-height:60px;" src="../assets/logo.png"></a>
+      </div>
+    </div>
+    
+      <div>
+        <mat-toolbar color="" class=" sticky-top nav" >
+          <div fxShow="true" fxHide.gt-sm="true">
+            <button mat-icon-button (click)="sidenav.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+    
+          <button mat-button class="companyName" routerLink="">
+            MIS MANAGEMENT
+          </button>
+          <span class="example-spacer"></span>
+          <div fxShow="true" fxHide.lt-md="true">
+            <!-- <a mat-button routerLink="/about-us">About us</a> -->
+            <button class="t-btn" routerLink="/home" mat-button color=""><mat-icon>home</mat-icon></button>
+            <button class="t-btn" routerLink="/about" mat-button color=""><mat-icon>info</mat-icon>About</button>
+            <button class="t-btn" routerLink="/contact" mat-button color=""><mat-icon>call</mat-icon>Contact</button>
+            <button class="t-btn" routerLink="/login" mat-button color=""><mat-icon>login</mat-icon>Log in</button>
+          </div>
+    
+        </mat-toolbar>
+    
+          <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+            <div fxLayout="column">
+              <button class="menu-button" routerLink="/home" mat-button color="basic"><mat-icon>home</mat-icon>
+                <span>HOME</span>
+              </button>
+              <button class="menu-button" routerLink="/about" mat-button color="basic"><mat-icon>info</mat-icon>
+                <span>ABOUT</span>
+              </button>
+              <button class="menu-button" routerLink="/contact" mat-button color="basic"><mat-icon>Contact</mat-icon>
+                <span>CONTACT</span>
+              </button>
+              <button class="menu-button" routerLink="/login" mat-button color="basic"><mat-icon>login</mat-icon>
+                <span>LOGIN</span>
+              </button>
+              
+            </div>
+          </mat-sidenav>
+    
+</div>

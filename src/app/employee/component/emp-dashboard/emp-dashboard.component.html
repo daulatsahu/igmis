@@ -1,0 +1,47 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidebar mode="side" opened>
+        <mat-nav-list>
+            <div class="user">
+              <img src="../assets/IGKV_Logo_png_igmis.png" alt="admin logo" />
+              <p>
+                <span class="name">Daulat  Sahu</span><br>
+                <span claas="mail">Employee</span>
+              </p>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="menu-head">
+          
+              <span>
+                <h4 routerLink="/Admin/admindesh">Dashboard</h4>
+              </span>
+            </div>
+            <mat-nav-list>
+  
+                <a mat-list-item routerLink=""><mat-icon class="design_icon">smartphone</mat-icon> My Projects</a>
+                <a mat-list-item routerLink=""><mat-icon class="design_icon">view_timeline</mat-icon> My Leaves</a>
+                <a mat-list-item routerLink=""><mat-icon class="design_icon">token</mat-icon>My Tasks</a>
+                <a mat-list-item routerLink=""><mat-icon class="design_icon">feed</mat-icon>Atendance</a>
+                <a mat-list-item routerLink=""><mat-icon class="design_icon">account_balance_wallet</mat-icon>Salary</a>
+        
+        
+              </mat-nav-list>
+          </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        
+            <div class="toolbar sticky-top nav ">
+                <mat-toolbar >
+                    <mat-icon (click)="sidebar.toggle()">menu</mat-icon>
+                    <div class="box">
+                        <mat-icon>search</mat-icon>
+                    </div>
+                </mat-toolbar>
+            </div>
+            <div class="main">
+                <router-outlet></router-outlet>
+            </div>
+        
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
