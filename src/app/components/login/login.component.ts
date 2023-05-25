@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
               Swal.fire(res.message, "", "success");
 
 
-              switch (res['role']) {
+              switch (res['Post_id']) {
                 case 1:
                   {
                     this.router.navigate(['/admin']);
@@ -82,6 +82,22 @@ export class LoginComponent implements OnInit {
                   break;
                 }
                 case 3: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 4: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 5: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 6: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 7: {
                   this.router.navigate(['/employee']);
                   break;
                 }

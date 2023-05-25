@@ -29,7 +29,7 @@ export class AddDeptComponent implements OnInit{
     Dept_Name: [null, Validators.required],
     Parent_Dept_ID:[null, Validators.required],
     Dept_Type_ID: [null, Validators.required],
-    Email_ID: [null,Validators.required, Validators],
+    Email_ID: [null,Validators.required],
     Website_Url: [null, Validators.required],
     About_Department: [null, Validators.required],
     Address: [null, Validators.required],
@@ -50,12 +50,16 @@ export class AddDeptComponent implements OnInit{
   department_id: any;
   allDepartmentDetail: any;
   data_id: any;
+  State: any;
+  District: any;
+  Block: any;
 
   constructor(private fb:FormBuilder, private ds:DataService,){}
 
   ngOnInit(): void {
     this.getDept_type();
    this.getTable()
+   this.getState()
   }
  
 // get department type in dropdown
@@ -73,6 +77,33 @@ export class AddDeptComponent implements OnInit{
       this.department=result;
     })
     }
+
+    // getcountry() {
+    //   this.ds.getData('employeeDetail/getCountry').subscribe(res => {
+    //     this.country = res;
+    //     console.log(this.country);
+    //   });
+    // }
+  
+    getState(){
+      this.ds.getData('departmentDetail/getState').subscribe(res => {
+        this.State = res;
+        console.log(this.State);
+      });
+    } 
+    onChangeState(State_id:any){
+      this.ds.getData('departmentDetail/getDistric/'+State_id).subscribe(res => {
+        this.District = res;
+        console.log(this.District);
+      });
+    } 
+    onChangeDistrict(Distric_id:any){
+      this.ds.getData('departmentDetail/getBlock/'+Distric_id).subscribe(res => {
+        this.Block = res;
+        console.log(this.Block);
+      });
+    } 
+
 
 // post Department Detail
 

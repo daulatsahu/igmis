@@ -71,33 +71,36 @@
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label>State</mat-label>
-                        <mat-select placeholder="State" formControlName="State">
-                            <mat-option value="1">mp</mat-option>
-                            <mat-option value="2">cg</mat-option>
-                            <mat-option value="3">mh</mat-option>
-                        </mat-select> 
-                    </mat-form-field>     
+                        <mat-label>Select State</mat-label>
+                        <mat-select matNativeControl formControlName="State"
+                            (valueChange)="onChangeState($event)">
+                            <mat-option value="" selected>Select State</mat-option>
+                            <mat-option *ngFor="let State of State" [value]="State.State_id">
+                                {{State.State_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="inputfieldsize">
+                        <mat-label>Select District</mat-label>
+                        <mat-select matNativeControl formControlName="District"
+                            (valueChange)="onChangeDistrict($event)">
+                            <mat-option value="" selected>Select District</mat-option>
+                            <mat-option *ngFor="let District of District" [value]="District.Distric_id">
+                                {{District.Distric_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label>Distric</mat-label>
-                        <mat-select placeholder=" Distric" formControlName="District">
-                            <mat-option value="1">Bilaspur</mat-option>
-                            <mat-option value="2">Raipur</mat-option>
-                            <mat-option value="3">Bemetara</mat-option>
-                        </mat-select> 
-                    </mat-form-field>     
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label>Block</mat-label>
-                        <mat-select placeholder="Block" formControlName="Block">
-                            <mat-option value="1">urla</mat-option>
-                            <mat-option value="2">berla</mat-option>
-                            <mat-option value="3">simga</mat-option>
-                        </mat-select> 
-                    </mat-form-field>     
+                        <mat-label>Select Block</mat-label>
+                        <mat-select matNativeControl formControlName="Block">
+                            <mat-option value="" selected>Select Block</mat-option>
+                            <mat-option *ngFor="let Block of Block" [value]="Block.Block_id">
+                                {{Block.Block_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
             <div class="row">
@@ -136,7 +139,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-label>Photo</mat-label>
+                    <mat-label>Department Logo</mat-label>
                     <input type="file" id="myFile" name="filename">
                 </div>
                 <div class="col-md-4">
