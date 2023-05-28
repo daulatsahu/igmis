@@ -33,13 +33,22 @@
                     </mat-form-field>
                 </div>
             </div>
+            <div class="col-md-4" >
+                <!-- <mat-form-field appearance="outline"> -->
+                  <mat-label *ngIf="iseditmode">Upload your Images</mat-label>&nbsp;
+                  <mat-label *ngIf="!iseditmode"><strong>image uploaded</strong></mat-label>&nbsp;
+                  <input  type="file" multiple #profile  (change)="selectimage($event)">
+                  <!-- <button type="button" (click)="submitfile()" id="tushil" *ngIf="iseditmode" >Upload</button> -->
+                  <button mat-raised-button color="primary" class="upload_images" (click)="submitfile()" type="button" >upload</button>
+                <!-- </mat-form-field> -->
+              </div>  <div style="display: contents; ;"><img [src]="uploadedimage" alt="a images" style="width: 20%;border: 2px solidgrey"></div>
             <br>
             <div class="row">
                 <div class="col offset-5">
                     <button mat-raised-button  type="button" >
                         Clear
                     </button> &nbsp;&nbsp; 
-                <button mat-raised-button color="primary"  *ngIf="!iseditmode" type="submit">
+                <button mat-raised-button color="primary"  *ngIf="!iseditmode" >
                     Submit
                 </button>
                 <button mat-raised-button color="primary"  *ngIf="iseditmode" (click)="onupdate()" type="button">
@@ -86,8 +95,13 @@
             <th mat-sort-header  mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element"> {{element.Availability_Status}} </td>
           </ng-container>
-       
-          <ng-container matColumnDef="Action">
+         
+          <ng-container matColumnDef="dddddd">
+            <th mat-sort-header  mat-header-cell *matHeaderCellDef>Photo</th>
+            <td mat-cell *matCellDef="let element"> <a  target="_blank" href={{element.file_Path}}><img style="height:100%;width:200px;" target="_blank" src={{element.file_Path}} alt=""></a>  </td>
+          </ng-container>
+          <!-- <a  target="_blank" href="{{row.Attach_Doc}}"><img style="height: 80%;width: 40px;" src={{row.Attach_Doc}}></a> -->
+          <ng-container matColumnDef="Action" stickyEnd="true">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element"> 
                 <button mat-icon-button color="primary" (click)="onedit(element.Resource_status_detail_id)">

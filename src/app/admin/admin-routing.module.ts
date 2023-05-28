@@ -11,6 +11,7 @@ import { AssignResourceComponent } from './component/assign-resource/assign-reso
 import { ResourceStatusComponent } from './component/resource-status/resource-status.component';
 import { ProPostAllotComponent } from './component/pro-post-allot/pro-post-allot.component';
 import { MapPostEmpComponent } from './component/map-post-emp/map-post-emp.component';
+import { ProjectWorkComponent } from './component/project-work/project-work.component';
 
 const routes: Routes = [
 { path: '', redirectTo: 'admindashboard/content', pathMatch: 'full' }, 
@@ -26,7 +27,9 @@ const routes: Routes = [
     { path: 'resource-status', component:ResourceStatusComponent},
     { path: 'pro-post-allot', component:ProPostAllotComponent},
     { path: 'map-post-emp', component:MapPostEmpComponent},
+    { path: 'project-work', component:ProjectWorkComponent},
 
+   
    
    
 

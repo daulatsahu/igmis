@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DataService {
+  postapi: any;
   updateDataa(arg0: string, value: any) {
     throw new Error('Method not implemented.');
   }
