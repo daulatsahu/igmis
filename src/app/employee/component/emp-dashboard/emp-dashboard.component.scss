@@ -29,8 +29,6 @@ mat-toolbar{
     }
 }
 
-
-
 .user{
     font-size: 13px;
     text-align: center;
@@ -63,7 +61,7 @@ mat-toolbar{
 :host {
     .mat-icon {
       vertical-align: middle;
-      margin-right: 1rem;
+      // margin-right: 1rem;
     }
   }
   .logo {
@@ -83,12 +81,12 @@ mat-toolbar{
     height: 44px !important;
     margin-bottom: 4px;
     &:hover {
-      color: #f2f5f7 !important;
+      color: #f0eff2 !important;
     }
     ::ng-deep {
       .mat-list-item-content {
         border-radius: 5px;
-        margin: 0 8px;
+        margin: 0 4px;
         &:hover {
           background: #2c3344 !important;
         }

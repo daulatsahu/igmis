@@ -15,6 +15,8 @@ import { AssignResourceComponent } from './component/assign-resource/assign-reso
 import { ResourceStatusComponent } from './component/resource-status/resource-status.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ProPostAllotComponent } from './component/pro-post-allot/pro-post-allot.component';
+import { MapPostEmpComponent } from './component/map-post-emp/map-post-emp.component';
+import { ProjectWorkComponent } from './component/project-work/project-work.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { ProPostAllotComponent } from './component/pro-post-allot/pro-post-allot
     AssignResourceComponent,
     ResourceStatusComponent,
     ProPostAllotComponent,
+    MapPostEmpComponent,
+    ProjectWorkComponent,
   ],
   imports: [
     CommonModule,

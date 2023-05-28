@@ -15,7 +15,7 @@
     })
   export class ResourceStatusComponent  implements OnInit{
       
-      displayedColumns=['Resource_status_detail_id','Resource_Name','Availability_Status','Action'];
+      displayedColumns=['Resource_status_detail_id','Resource_Name','Availability_Status','dddddd','Action'];
       dataSource!: MatTableDataSource<any>;
     
        @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -24,6 +24,7 @@
       resourceStatusForm = this.fb.group({
         Resource_Main_ID: [null, Validators.required],
         Availability_Status_ID: [null, Validators.required],
+        file_Path: [null, Validators.required],
       });
      
       iseditmode: boolean =false
@@ -35,6 +36,9 @@
     data_id: any;
     status: any;
     resourceStatusByid: any;
+    images: any;
+    uploadedimage:any = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWq1fCF7KbKYum0PRRMGKnq4EBj-QT_bcSLhLsIphPeQ&s;"
+    imageurl: any;
     
       constructor(private fb:FormBuilder, private ds : DataService,){}
     
@@ -62,12 +66,13 @@
 
   // Show data in Mat Table
 getTable(){
+   
   this.ds.getData('resourceStatus/ResourcestatusMap' ).subscribe((result:any)=>{
       this.allAssignResourceDetail=result;
           this.dataSource = new MatTableDataSource(result);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.MatSort;
-      // console.log(result);  
+      console.log(result);  
     })
     }
 
@@ -78,6 +83,12 @@ applyFilter(event: Event) {
 }
 
 onSubmit(){
+ 
+  this.resourceStatusForm.patchValue({
+    file_Path:this.imageurl
+
+  }) //this will help to set the date format (for storing in database)
+
 console.log(this.resourceStatusForm.value);
 this.ds.postData('resourceStatus/PostResorcestatus',this.resourceStatusForm.value).subscribe(res =>{
   this.data=res;
@@ -128,5 +139,37 @@ onupdate(){
   this.getTable();
  }) 
 }
+
+// file or image upload
+selectimage(event : any){                          //here on selecting the image(event) this will check any images are present or not 
+  if(event.target.files.length > 0){
+    const file = event.target.files[0];            //it is used to get the input file dom property
+    this.images = file
+    var reader =new FileReader();           //this object is used to read the file
+    reader.readAsDataURL(file);             //to read the dom property of file
+    reader.onload=(event:any)=>{            //this will load the selected image
+      this.uploadedimage=event.target.result;
+    }
+  }
+  }
+  submitfile(){                            //multer will accept form data so we here creating a form data
+  if(!this.images){
+    return this.nopath();
+  }
+  
+  const formData = new FormData();
+  formData.append('file_Path', this.images);               //the name of key is to be same as provide in backend(node js)
+  console.log(this.images)
+  
+  this.ds.postData('uploadfile',formData).subscribe((result:any)=>{
+     console.log(result["profile_url"]);
+    this.imageurl=result["profile_url"];
+    Swal.fire("image uploaded successfully")
+    this.iseditmode=false;
+  });
+  }
+  nopath(){
+    Swal.fire("please select a file")
+    }
 
 }

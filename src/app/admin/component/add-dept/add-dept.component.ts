@@ -17,7 +17,7 @@ export class AddDeptComponent implements OnInit{
 
 
 
-  displayedColumns=['Dept_ID','Dept_Name','Dept_Type_Name','Email_ID','Contact_Number','Website_Url','About_Department','Address' ,'Action'];
+  displayedColumns=['Dept_ID','Dept_Name','Dept_Type_Name','Email_ID','Logo_Path','Contact_Number','Website_Url','About_Department','Address' ,'Action'];
   dataSource!: MatTableDataSource<any>;
 
    @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -29,8 +29,9 @@ export class AddDeptComponent implements OnInit{
     Dept_Name: [null, Validators.required],
     Parent_Dept_ID:[null, Validators.required],
     Dept_Type_ID: [null, Validators.required],
-    Email_ID: [null,Validators.required, Validators],
+    Email_ID: [null,Validators.required],
     Website_Url: [null, Validators.required],
+    Logo_Path: [null, Validators.required],
     About_Department: [null, Validators.required],
     Address: [null, Validators.required],
     State: [null, Validators.required],
@@ -50,12 +51,19 @@ export class AddDeptComponent implements OnInit{
   department_id: any;
   allDepartmentDetail: any;
   data_id: any;
+  State: any;
+  District: any;
+  Block: any;
+  images: any;
+  imageurl: any;
+  uploadedimage:any = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWq1fCF7KbKYum0PRRMGKnq4EBj-QT_bcSLhLsIphPeQ&s;"
 
   constructor(private fb:FormBuilder, private ds:DataService,){}
 
   ngOnInit(): void {
     this.getDept_type();
    this.getTable()
+   this.getState()
   }
  
 // get department type in dropdown
@@ -74,10 +82,39 @@ export class AddDeptComponent implements OnInit{
     })
     }
 
+    // getcountry() {
+    //   this.ds.getData('employeeDetail/getCountry').subscribe(res => {
+    //     this.country = res;
+    //     console.log(this.country);
+    //   });
+    // }
+  
+    getState(){
+      this.ds.getData('departmentDetail/getState').subscribe(res => {
+        this.State = res;
+        console.log(this.State);
+      });
+    } 
+    onChangeState(State_id:any){
+      this.ds.getData('departmentDetail/getDistric/'+State_id).subscribe(res => {
+        this.District = res;
+        console.log(this.District);
+      });
+    } 
+    onChangeDistrict(Distric_id:any){
+      this.ds.getData('departmentDetail/getBlock/'+Distric_id).subscribe(res => {
+        this.Block = res;
+        console.log(this.Block);
+      });
+    } 
+
+
 // post Department Detail
 
 onSubmit(){
-
+  this.departmentDetailForm.patchValue({
+    Logo_Path:this.imageurl
+  }) //this will help to set the date format (for storing in database)
 console.log(this.departmentDetailForm.value);
 this.ds.postData('departmentDetail',this.departmentDetailForm.value).subscribe(res =>{
   this.data=res;
@@ -167,6 +204,37 @@ onupdate(){
  }) 
 }
 
+// file or image upload
+selectimage(event : any){                          //here on selecting the image(event) this will check any images are present or not 
+  if(event.target.files.length > 0){
+    const file = event.target.files[0];            //it is used to get the input file dom property
+    this.images = file
+    var reader =new FileReader();           //this object is used to read the file
+    reader.readAsDataURL(file);             //to read the dom property of file
+    reader.onload=(event:any)=>{            //this will load the selected image
+      this.uploadedimage=event.target.result;
+    }
+  }
+  }
+  submitfile(){                            //multer will accept form data so we here creating a form data
+  if(!this.images){
+    return this.nopath();
+  }
+  
+  const formData = new FormData();
+  formData.append('Logo_Path',this.images);               //the name of key is to be same as provide in backend(node js)
+  console.log(this.images)
+  
+  this.ds.postData('departmentDetail/uploadfile',formData).subscribe((result:any)=>{
+     console.log(result["profile_url"]);
+    this.imageurl=result["profile_url"];
+    Swal.fire("image uploaded successfully")
+    this.iseditmode=false;
+  });
+  }
+  nopath(){
+    Swal.fire("please select a file")
+    }
 
 
 }

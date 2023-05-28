@@ -64,14 +64,14 @@ export class LoginComponent implements OnInit {
           .subscribe((res: any) => {
             console.log("pop",res);
             if (res.error) {
-              Swal.fire(res.error.message, "", "error");
+            Swal.fire(res.error.message, "", "error");
             }
             else if (res.token) {
               localStorage.setItem('token', res.token);
               Swal.fire(res.message, "", "success");
 
 
-              switch (res['role']) {
+              switch (res['Emp_Id']) {
                 case 1:
                   {
                     this.router.navigate(['/admin']);
@@ -82,6 +82,22 @@ export class LoginComponent implements OnInit {
                   break;
                 }
                 case 3: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 4: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 5: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 6: {
+                  this.router.navigate(['/employee']);
+                  break;
+                }
+                case 7: {
                   this.router.navigate(['/employee']);
                   break;
                 }
