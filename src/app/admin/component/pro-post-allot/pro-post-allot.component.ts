@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pro-post-allot',
@@ -13,18 +14,21 @@ import Swal from 'sweetalert2';
 })
 export class ProPostAllotComponent  implements OnInit{
     
-    displayedColumns=['Project_post_allotment_ID','Project_name','Post_name','Duration_in_days','Manpower_no','Description','Action'];
+    displayedColumns=['Project_post_allotment_ID','Project_name','Post_name','Financial_year','Start_date','End_date','Duration_in_days','Manpower_no','Description','Action'];
     dataSource!: MatTableDataSource<any>;
   
      @ViewChild(MatPaginator) paginator!: MatPaginator ;
      @ViewChild(MatSort) MatSort!: MatSort ;
 
     projectPostForm = this.fb.group({
-      Post_ID: [null, Validators.required],
+      Post_id: [null, Validators.required],
       Project_ID: [null, Validators.required],
       Description: [null, Validators.required],
       Duration_in_days: [null, Validators.required],
       Manpower_no: [null, Validators.required],
+      Financial_year: [null, Validators.required],
+      Start_date: [null, Validators.required],
+      End_date: [null, Validators.required],
     });
    
     iseditmode: boolean =false
@@ -38,7 +42,7 @@ export class ProPostAllotComponent  implements OnInit{
   projectType: any;
   post: any;
   
-    constructor(private fb:FormBuilder, private ds : DataService,){}
+    constructor(private fb:FormBuilder, private ds : DataService, private datepipe: DatePipe){}
   
     ngOnInit(): void {
    this.getTable()
@@ -78,6 +82,16 @@ this.dataSource.filter = filterValue.trim().toLowerCase();
 }
 
 onSubmit(){
+
+  this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+  ({     
+    Start_date : this.datepipe.transform(this.projectPostForm.get("Start_date")?.value, "yyyy-MM-dd"), 
+   });
+   this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+   ({     
+    End_date : this.datepipe.transform(this.projectPostForm.get("End_date")?.value, "yyyy-MM-dd"), 
+    });
+
 console.log(this.projectPostForm.value);
 this.ds.postData('projectPostDetail/postProjecPost',this.projectPostForm.value).subscribe(res =>{
 this.data=res;
@@ -92,17 +106,29 @@ this.projectPostForm.reset();
 
 //  Get single Data into form for update
 onedit(Project_post_allotment_ID: any){ 
-this.projectPostDataByid = this.allprojectPostDetail.find((f : any) => f.Resource_status_detail_id === parseInt(Project_post_allotment_ID)); 
+  this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+  ({     
+    Start_date : this.datepipe.transform(this.projectPostForm.get("Start_date")?.value, "yyyy-MM-dd"), 
+   });
+   this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+   ({     
+    End_date : this.datepipe.transform(this.projectPostForm.get("End_date")?.value, "yyyy-MM-dd"), 
+    });
+
+this.projectPostDataByid = this.allprojectPostDetail.find((f : any) => f.Project_post_allotment_ID === parseInt(Project_post_allotment_ID)); 
 console.log(this.projectPostDataByid)
 this.iseditmode=true;
 this.data_id = Project_post_allotment_ID;
 this.projectPostForm.patchValue
 ({
-  Post_ID:this.projectPostDataByid.Post_ID,
+  Post_id:this.projectPostDataByid.Post_id,
   Project_ID:this.projectPostDataByid.Project_ID,
   Description:this.projectPostDataByid.Description,
   Duration_in_days:this.projectPostDataByid.Duration_in_days,
   Manpower_no:this.projectPostDataByid.Manpower_no,
+  Financial_year:this.projectPostDataByid.Financial_year,
+  Start_date:this.projectPostDataByid.Start_date,
+  End_date:this.projectPostDataByid.End_date,
 })
 }
 

@@ -57,18 +57,20 @@ export class AddDeptComponent implements OnInit{
   images: any;
   imageurl: any;
   uploadedimage:any = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWq1fCF7KbKYum0PRRMGKnq4EBj-QT_bcSLhLsIphPeQ&s;"
+  pDept: any;
 
   constructor(private fb:FormBuilder, private ds:DataService,){}
 
   ngOnInit(): void {
-    this.getDept_type();
+  this.getDept_type();
    this.getTable()
    this.getState()
+   this.getDepartmentMap()
   }
  
 // get department type in dropdown
   getDept_type(){
-    this.ds. getdepart_typedata('/deptType').subscribe((result)=>{
+    this.ds.getData('departmentDetail/deptType').subscribe((result)=>{
       console.log(result);
       this.deptType=result;
     })
@@ -81,6 +83,13 @@ export class AddDeptComponent implements OnInit{
       this.department=result;
     })
     }
+
+    getDepartmentMap(){
+      this.ds.getData('departmentDetail/allDepartmentmap').subscribe((result)=>{
+        console.log(result);  
+        this.pDept=result;
+      })
+      }
 
     // getcountry() {
     //   this.ds.getData('employeeDetail/getCountry').subscribe(res => {
@@ -172,10 +181,7 @@ onedit(Dept_ID: any){
 }
 
 onupdate(){
-  // this.studentdetailsForm.patchValue //this will help to set the date format (for storing in database)
-  // ({     
-  //            dob : this.datePipe.transform(this.studentdetailsForm.get("dob")?.value, "yyyy-MM-dd"), 
-  //  });
+
    this.ds.updateData('updateDepartmentDetail/' + this.data_id,this.departmentDetailForm.value).subscribe((result)=>{
     console.log(result);
     this.data= result

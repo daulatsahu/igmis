@@ -47,21 +47,20 @@ mat-card{
   }
 
   
+  
 // table color
 
-tr:nth-child(even){
+tr:nth-child(odd){
   background-color:#f9f9f9;
 }
 
-tr:nth-child(odd){
-  background-color:  LightGray;
+tr:nth-child(even){
+  background-color:  rgb(228, 228, 228);
 }
 
 
 table{
   th{
-    width: 120%;
-    background-color:hsla(197, 100%, 91%, 0.993)
+    background-color:hsl(240, 13%, 72%)
   }
 }
-

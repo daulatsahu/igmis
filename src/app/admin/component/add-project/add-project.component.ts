@@ -18,7 +18,7 @@ export class AddProjectComponent implements OnInit{
 
 
   
-  displayedColumns=['Project_ID','Project_Name','Project_Type_Name','Project_Short_name','Project_Discription','Action'];
+  displayedColumns=['Project_ID','Project_name','Project_Type_Name','Project_Short_name','Project_Discription','Action'];
   dataSource!: MatTableDataSource<any>;
 
    @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -28,7 +28,7 @@ export class AddProjectComponent implements OnInit{
 
     Project_name: [null, Validators.required],
     Project_Type_ID:[null, Validators.required],
-    Dept_ID: [null, Validators.required],
+    // Dept_ID: [null, Validators.required],
     Project_Short_name:[null, Validators.required],
     Project_Discription: [null, Validators.required],
   });
@@ -77,12 +77,13 @@ onSubmit(){
     this.data=res;
     if (this.data)
     {Swal.fire("Data Saved successfully")};
+    this.getTable();
+    this.onClear()
   });
- this.getTable();
+
   }
   onClear(){
     this.projectDetailForm.reset();
-    
   }
   
 
@@ -109,7 +110,6 @@ onedit(Project_ID: any){
   ({
     Project_name:this.projectDataByid.Project_name,
    Project_Type_ID:this.projectDataByid.Project_Type_ID,
-   Dept_ID:this.projectDataByid.Dept_ID,
    Project_Short_name:this.projectDataByid.Project_Short_name,
    Project_Discription:this.projectDataByid.Project_Discription,
   })
@@ -120,16 +120,14 @@ onedit(Project_ID: any){
 // Update Project data
 
 onupdate(){
-  // this.studentdetailsForm.patchValue //this will help to set the date format (for storing in database)
-  // ({     
-  //            dob : this.datePipe.transform(this.studentdetailsForm.get("dob")?.value, "yyyy-MM-dd"), 
-  //  });
+ 
    this.ds.updateData('updateProjectDetail/' + this.data_id,this.projectDetailForm.value).subscribe((result)=>{
     console.log(result);
     this.data= result
 
   if(this.data)
   {Swal.fire("data updated successfully")};
+  this.getTable();
   this.onClear();
    })
   this.iseditmode = false;

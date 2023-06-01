@@ -17,6 +17,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ProPostAllotComponent } from './component/pro-post-allot/pro-post-allot.component';
 import { MapPostEmpComponent } from './component/map-post-emp/map-post-emp.component';
 import { ProjectWorkComponent } from './component/project-work/project-work.component';
+import { ProjectWorkDetailComponent } from './component/project-work-detail/project-work-detail.component';
+import { WorkAllotmentComponent } from './component/work-allotment/work-allotment.component';
+import { ProjectModuleComponent } from './component/project-module/project-module.component';
+import { MapProjectModuleComponent } from './component/map-project-module/map-project-module.component';
 
 
 @NgModule({
@@ -33,6 +37,10 @@ import { ProjectWorkComponent } from './component/project-work/project-work.comp
     ProPostAllotComponent,
     MapPostEmpComponent,
     ProjectWorkComponent,
+    ProjectWorkDetailComponent,
+    WorkAllotmentComponent,
+    ProjectModuleComponent,
+    MapProjectModuleComponent,
   ],
   imports: [
     CommonModule,

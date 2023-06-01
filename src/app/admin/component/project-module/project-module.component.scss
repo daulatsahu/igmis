@@ -45,23 +45,4 @@ mat-card{
   mat-hint{
   color:blue;
   }
-
   
-// table color
-
-tr:nth-child(even){
-  background-color:#f9f9f9;
-}
-
-tr:nth-child(odd){
-  background-color:  LightGray;
-}
-
-
-table{
-  th{
-    width: 120%;
-    background-color:hsla(197, 100%, 91%, 0.993)
-  }
-}
-

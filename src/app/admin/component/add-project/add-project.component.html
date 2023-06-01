@@ -42,17 +42,7 @@
                         </div>
                     </div>
                     <div class="row" style="margin-top: 2px;" >
-                        <div class="col-md-4">
-                            <mat-form-field appearance="outline" class="inputfieldsize">
-                                <mat-label>Department Type </mat-label>
-                                <mat-select formControlName="Dept_ID">
-                                  <mat-option *ngFor="let c of deptType ;" [value]="c.Dept_ID" >
-                                    {{c.Dept_Name}}
-                                  </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-8">
+                        <div class="col">
                             <mat-form-field appearance="outline" class="inputfieldsize">
                                 <mat-label>Project Description</mat-label>
                                 <textarea matInput formControlName="Project_Discription"></textarea>
@@ -104,9 +94,9 @@
           <th mat-sort-header mat-header-cell *matHeaderCellDef> ID </th>
           <td mat-cell *matCellDef="let element">{{element.Project_ID}}</td>
         </ng-container>
-        <ng-container matColumnDef="Project_Name">
+        <ng-container matColumnDef="Project_name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.Project_Name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.Project_name}} </td>
           </ng-container>
           <ng-container matColumnDef="Project_Short_name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Short Name</th>

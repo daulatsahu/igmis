@@ -32,13 +32,12 @@
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label> Parent Department (op)</mat-label>
-                        <mat-select placeholder=" Parent Department ID" formControlName="Parent_Dept_ID">
-                            <mat-option value="1">GOI</mat-option>
-                            <mat-option value="2">SG</mat-option>
-                            <mat-option value="1">University</mat-option>
-                            <mat-option value="1">Private</mat-option>
-                        </mat-select>                          
+                        <mat-label>Parent Department(OP)</mat-label>
+                        <mat-select formControlName="Parent_Dept_ID">
+                          <mat-option *ngFor="let c of pDept ;" [value]="c.Dept_ID" >
+                            {{c.Dept_Name}}
+                          </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
@@ -127,22 +126,21 @@
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
+                    
                     <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label>Contact Person </mat-label>
-                        <mat-select placeholder=" Contact Person ID(op)" formControlName="Contact_Person_ID">
-                            <mat-option value="1">urla</mat-option>
-                            <mat-option value="2">berla</mat-option>
-                            <mat-option value="3">simga</mat-option>
-                        </mat-select> 
-                    </mat-form-field>   
+                        <mat-label>
+                            Contact Person
+                        </mat-label>
+                        <input matInput placeholder="Contact Person(op)" formControlName="Contact_Person_ID">
+                    </mat-form-field> 
                 </div>
             </div>
             <div class="row">
 
                 <div class="col-md-4" >
                     <!-- <mat-form-field appearance="outline"> -->
-                      <mat-label *ngIf="iseditmode">Upload your Images</mat-label>&nbsp;
-                      <mat-label *ngIf="!iseditmode"><strong>image uploaded</strong></mat-label>&nbsp;
+                      <mat-label *ngIf="iseditmode">edit your Images</mat-label>&nbsp;
+                      <mat-label *ngIf="!iseditmode"><strong>image upload</strong></mat-label>&nbsp;
                       <input  type="file" multiple #profile  (change)="selectimage($event)">
                       <!-- <button type="button" (click)="submitfile()" id="tushil" *ngIf="iseditmode" >Upload</button> -->
                       <button mat-raised-button color="primary" class=" btn btn-secondary btn-sm" (click)="submitfile()" type="button" >upload</button>

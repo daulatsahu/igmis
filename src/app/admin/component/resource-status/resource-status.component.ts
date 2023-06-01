@@ -15,7 +15,9 @@
     })
   export class ResourceStatusComponent  implements OnInit{
       
-      displayedColumns=['Resource_status_detail_id','Resource_Name','Availability_Status','dddddd','Action'];
+    displayedColumns=['Resource_status_detail_id','Resource_Name','Availability_Status','Action'];
+
+    // displayedColumns=['Resource_status_detail_id','Resource_Name','Availability_Status','dddddd','Action'];
       dataSource!: MatTableDataSource<any>;
     
        @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -169,7 +171,7 @@ selectimage(event : any){                          //here on selecting the image
   });
   }
   nopath(){
-    Swal.fire("please select a file")
+    Swal.fire("please select a file")
     }
 
 }

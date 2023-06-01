@@ -12,6 +12,10 @@ import { ResourceStatusComponent } from './component/resource-status/resource-st
 import { ProPostAllotComponent } from './component/pro-post-allot/pro-post-allot.component';
 import { MapPostEmpComponent } from './component/map-post-emp/map-post-emp.component';
 import { ProjectWorkComponent } from './component/project-work/project-work.component';
+import { ProjectWorkDetailComponent } from './component/project-work-detail/project-work-detail.component';
+import { WorkAllotmentComponent } from './component/work-allotment/work-allotment.component';
+import { ProjectModuleComponent } from './component/project-module/project-module.component';
+import { MapProjectModuleComponent } from './component/map-project-module/map-project-module.component';
 
 const routes: Routes = [
 { path: '', redirectTo: 'admindashboard/content', pathMatch: 'full' }, 
@@ -28,12 +32,12 @@ const routes: Routes = [
     { path: 'pro-post-allot', component:ProPostAllotComponent},
     { path: 'map-post-emp', component:MapPostEmpComponent},
     { path: 'project-work', component:ProjectWorkComponent},
+    { path: 'project-work-detail', component:ProjectWorkDetailComponent},
+    { path: 'work-allotment', component:WorkAllotmentComponent},
+    { path: 'project-module', component:ProjectModuleComponent},
+    { path: 'map-project-module', component:MapProjectModuleComponent},
 
-   
-   
-   
 
-   
 ]},];
 
 @NgModule({
