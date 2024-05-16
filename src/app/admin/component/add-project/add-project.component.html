@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" id="addnews">
     <mat-card>
         <div class="container">
             <form [formGroup]="projectDetailForm" (ngSubmit)="onSubmit()">
@@ -58,7 +58,8 @@
                         </button> &nbsp;&nbsp; 
                     <button mat-raised-button color="primary"  *ngIf="!iseditmode" type="submit">
                         Submit
-                    </button><button mat-raised-button color="primary"  *ngIf="iseditmode" (click)="onupdate()" type="button">
+                    </button>
+                    <button mat-raised-button color="primary"  *ngIf="iseditmode" (click)="onupdate()" type="button">
                         Update
                     </button>
     
@@ -106,10 +107,6 @@
             <th mat-sort-header  mat-header-cell *matHeaderCellDef>Project Type</th>
             <td mat-cell *matCellDef="let element"> {{element.Project_Type_Name}} </td>
           </ng-container>
-          <!-- <ng-container matColumnDef="Dept_ID">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef>Department</th>
-            <td mat-cell *matCellDef="let element"> {{element.Dept_ID}} </td>
-          </ng-container> -->
           <ng-container matColumnDef="Project_Discription">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Description</th>
             <td mat-cell *matCellDef="let element"> {{element.Project_Discription}} </td>
@@ -117,7 +114,7 @@
           <ng-container matColumnDef="Action">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-icon-button color="primary" (click)="onedit(element.Project_ID)">
+                <button mat-icon-button color="primary" (click)="onedit(element.Project_ID); scrollToBottom()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn"  (click)="ondelete(element.Project_ID)">
@@ -125,7 +122,6 @@
                 </button>
             </td>
           </ng-container>
-      
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

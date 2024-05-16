@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -39,7 +39,7 @@ export class AssignResourceComponent  implements OnInit{
   resourceAssDataByid: any;
   data_id: any;
   
-    constructor(private fb:FormBuilder, private ds : DataService, private datepipe:DatePipe){}
+    constructor(private fb:FormBuilder, private ds : DataService, private datepipe:DatePipe, private elementRef: ElementRef){}
   
     ngOnInit(): void {
    this.getTable()
@@ -53,6 +53,12 @@ assignResource(){
     console.log(result);
     this.resource=result;
   })
+}
+
+// this is scroll function
+scrollToBottom(): void {
+  const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+  element.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 
 // get Project in dropdown

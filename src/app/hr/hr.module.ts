@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PostDetailComponent } from './component/post-detail/post-detail.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { ProgressComponent } from './component/progress/progress.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,14 +26,17 @@ import { PostDetailComponent } from './component/post-detail/post-detail.compone
     AllEmployeeComponent,
     AddEmployeeComponent,
     ProjectAssignComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    ForgotPasswordComponent,
+    ProgressComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
     HRRoutingModule,
-    CollectModule
+    CollectModule,
+    SharedModule
   ],
   providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="addnews">
     <mat-card>
         <form [formGroup]="projectPostForm" (ngSubmit)="onSubmit()">
         <div class="container">
@@ -12,7 +12,7 @@
                 <legend class="scheduler-border">Project Post Setup Allotment</legend>
                 <div class="control-group">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
                         <mat-label> Choose Project </mat-label>
                         <mat-select formControlName="Project_ID">
@@ -22,7 +22,17 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline" class="inputfieldsize">
+                    <mat-label>Financial Year</mat-label>
+                    <mat-select formControlName="Financial_id">
+                      <mat-option *ngFor="let c of year ;" [value]="c.Financial_id" >
+                        {{c.Financial_name}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
                         <mat-label>Choose Post </mat-label>
                         <mat-select formControlName="Post_id">
@@ -48,13 +58,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="inputfieldsize">
-                        <mat-label>Financial Year</mat-label>
-                        <input matInput placeholder="2022" formControlName="Financial_year">
-                      </mat-form-field>
-                </div>
-                <div class="col-md-4">
+                
+                <div class="col-md-6">
                     <mat-form-field color="accent" appearance="outline" class="inputfieldsize">
                         <mat-label>Start Date</mat-label>
                         <input matInput [matDatepicker]="picker1" formControlName="Start_date">
@@ -63,7 +68,7 @@
                         <mat-datepicker #picker1></mat-datepicker>
                       </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <mat-form-field color="accent" appearance="outline" class="inputfieldsize">
                         <mat-label>End Date</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="End_date">
@@ -84,7 +89,7 @@
             <br>
             <div class="row">
                 <div class="col offset-5">
-                    <button mat-raised-button  type="button" >
+                    <button mat-raised-button (click)="onClear()" type="button" >
                         Clear
                     </button> &nbsp;&nbsp; 
                 <button mat-raised-button color="primary"  *ngIf="!iseditmode" type="submit">
@@ -142,9 +147,9 @@
             <th mat-sort-header  mat-header-cell *matHeaderCellDef>Manpower Number</th>
             <td mat-cell *matCellDef="let element"> {{element.Manpower_no}} </td>
           </ng-container>
-          <ng-container matColumnDef="Financial_year">
+          <ng-container matColumnDef="Financial_name">
             <th mat-sort-header  mat-header-cell *matHeaderCellDef>Financial Year</th>
-            <td mat-cell *matCellDef="let element"> {{element.Financial_year}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.Financial_name}} </td>
           </ng-container>
           <ng-container matColumnDef="Start_date">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Start Date</th>
@@ -162,7 +167,7 @@
           <ng-container matColumnDef="Action" stickyEnd="true">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-icon-button color="primary" (click)="onedit(element.Project_post_allotment_ID)">
+                <button mat-icon-button color="primary" (click)="onedit(element.Project_post_allotment_ID); scrollToBottom()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn"  (click)="ondelete(element.Project_post_allotment_ID)">

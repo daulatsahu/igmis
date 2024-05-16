@@ -22,6 +22,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
+
 
 @NgModule({
   exports: [
@@ -47,6 +52,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDividerModule,
     MatListModule,
     MatMenuModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    CarouselModule
   ],
   declarations: [],
 })

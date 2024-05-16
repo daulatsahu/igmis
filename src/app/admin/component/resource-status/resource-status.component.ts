@@ -1,4 +1,4 @@
-  import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/core';
   import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   import { DataService } from 'src/app/services/data.service';
   import { MatPaginator } from '@angular/material/paginator';
@@ -39,17 +39,23 @@
     status: any;
     resourceStatusByid: any;
     images: any;
-    uploadedimage:any = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWq1fCF7KbKYum0PRRMGKnq4EBj-QT_bcSLhLsIphPeQ&s;"
+    // uploadedimage:any = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWq1fCF7KbKYum0PRRMGKnq4EBj-QT_bcSLhLsIphPeQ&s;"
     imageurl: any;
     
-      constructor(private fb:FormBuilder, private ds : DataService,){}
+      constructor(private fb:FormBuilder, private ds : DataService,private elementRef: ElementRef){}
     
       ngOnInit(): void {
      this.getTable()
     this.assignResource()
     this.Status()
       }
-  
+
+   // this is scroll function
+   scrollToBottom(): void {
+    const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  } 
+
   // get resource in dropdown
   assignResource(){
     this.ds.getData('resourceStatus/allResource').subscribe((result)=>{
@@ -142,36 +148,6 @@ onupdate(){
  }) 
 }
 
-// file or image upload
-selectimage(event : any){                          //here on selecting the image(event) this will check any images are present or not 
-  if(event.target.files.length > 0){
-    const file = event.target.files[0];            //it is used to get the input file dom property
-    this.images = file
-    var reader =new FileReader();           //this object is used to read the file
-    reader.readAsDataURL(file);             //to read the dom property of file
-    reader.onload=(event:any)=>{            //this will load the selected image
-      this.uploadedimage=event.target.result;
-    }
-  }
-  }
-  submitfile(){                            //multer will accept form data so we here creating a form data
-  if(!this.images){
-    return this.nopath();
-  }
-  
-  const formData = new FormData();
-  formData.append('file_Path', this.images);               //the name of key is to be same as provide in backend(node js)
-  console.log(this.images)
-  
-  this.ds.postData('uploadfile',formData).subscribe((result:any)=>{
-     console.log(result["profile_url"]);
-    this.imageurl=result["profile_url"];
-    Swal.fire("image uploaded successfully")
-    this.iseditmode=false;
-  });
-  }
-  nopath(){
-    Swal.fire("please select a file")
-    }
+
 
 }

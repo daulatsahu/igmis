@@ -60,6 +60,36 @@ tr:nth-child(even){
 
 table{
   th{
-    background-color:hsl(240, 13%, 72%)
+    background-color:hsl(214, 63%, 77%)
   }
+}
+
+
+// dropdown
+/* Styling the dropdown container */
+#language {
+  width: 150px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Styling the dropdown arrow */
+#language::after {
+  content: '\25BE'; /* Unicode character for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+
+/* Styling the dropdown options */
+#language option {
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
 }

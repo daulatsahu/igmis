@@ -21,6 +21,15 @@ import { ProjectWorkDetailComponent } from './component/project-work-detail/proj
 import { WorkAllotmentComponent } from './component/work-allotment/work-allotment.component';
 import { ProjectModuleComponent } from './component/project-module/project-module.component';
 import { MapProjectModuleComponent } from './component/map-project-module/map-project-module.component';
+import { FinancialYearPosComponent } from './component/financial-year-pos/financial-year-pos.component';
+import { FinancialPostComponent } from './component/financial-post/financial-post.component';
+import { FinaYearDialogComponent } from './component/fina-year-dialog/fina-year-dialog.component';
+import { FinancialBudgetComponent } from './component/financial-budget/financial-budget.component';
+import { FinancialBudgetAllotmentComponent } from './component/financial-budget-allotment/financial-budget-allotment.component';
+import { SharedModule } from '../shared/shared.module';
+import { StockItemDetailsComponent } from './component/stock-item-details/stock-item-details.component';
+import { CategorySubcategoryComponent } from './component/category-subcategory/category-subcategory.component';
+import { ContactFromComponent } from './component/contact-from/contact-from.component';
 
 
 @NgModule({
@@ -41,12 +50,21 @@ import { MapProjectModuleComponent } from './component/map-project-module/map-pr
     WorkAllotmentComponent,
     ProjectModuleComponent,
     MapProjectModuleComponent,
+    FinancialYearPosComponent,
+    FinancialPostComponent,
+    FinaYearDialogComponent,
+    FinancialBudgetComponent,
+    FinancialBudgetAllotmentComponent,
+    StockItemDetailsComponent,
+    CategorySubcategoryComponent,
+    ContactFromComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AdminRoutingModule,
-    CollectModule
+    CollectModule,
+    SharedModule
   ],
   providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })

@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { StartpageComponent } from './components/startpage/startpage.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { AdminGuard } from './guard/admin.guard';
+import { HrGuard } from './guard/hr.guard';
+import { EmployeeGuard } from './guard/employee.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -10,12 +13,12 @@ const routes: Routes = [
     path: '', component: StartpageComponent,
     children: [
       { path: 'home', component: HomeComponent},
-      { path: 'login', component: LoginComponent},
 ]},
+{ path: 'login', component: LoginComponent},
 
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  { path: 'hr', loadChildren: () => import('./hr/hr.module').then(m => m.HRModule) },
-  { path: 'employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate:[AdminGuard] },
+  { path: 'hr', loadChildren: () => import('./hr/hr.module').then(m => m.HRModule),canActivate:[HrGuard] },
+  { path: 'employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),canActivate:[EmployeeGuard] },
 ];
 
 @NgModule({

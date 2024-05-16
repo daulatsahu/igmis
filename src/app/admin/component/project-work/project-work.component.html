@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid" id="addnews">
     <mat-card>
         <form [formGroup]="projrctWorkForm"  (ngSubmit)="onSubmit()">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 heading">
-                    <h2 style="color:whitesmoke;">Project Work</h2>
+                    <h2 style="color:whitesmoke;">Add Project Work</h2>
                 </div>
             </div>
             <br>
@@ -15,14 +15,15 @@
                 <div class="col-md-4">
                   <mat-form-field appearance="outline" class="inputfieldsize">
                     <mat-label>Choose Project </mat-label>
-                    <mat-select formControlName="Project_ID">
+                    <mat-select formControlName="Project_ID" 
+                     (valueChange)="onChangeModule($event)">
+                     <mat-option value="" selected>Select Country</mat-option>
                       <mat-option *ngFor="let c of project ;" [value]="c.Project_ID" >
                         {{c.Project_name}}
                       </mat-option>
                     </mat-select>
                 </mat-form-field>
                 </div>
-                
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="inputfieldsize">
                         <mat-label>Choose Module </mat-label>
@@ -100,7 +101,7 @@
     <mat-card style="margin-bottom: 40px;">
 
         <mat-toolbar>
-            <p><span ><h5 class="title">All Resources</h5></span> </p>
+            <p><span ><h5 class="title">All Works</h5></span> </p>
         </mat-toolbar>
        <div class="container ">
   <div class="row table-responsive">

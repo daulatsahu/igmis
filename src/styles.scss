@@ -40,3 +40,47 @@ $igmis-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.policy-product .owl-next,
+.policy-product .owl-prev {
+  background: rgb(190, 190, 187) !important;
+  color: #222 !important;
+  height: 60px !important;
+  width: 60px !important;
+  border-radius: 50% !important;
+  position: absolute;
+  top: 50% !important;
+  transform: translateY(-50%);
+  font-size: 24px;
+  display: flex !important;
+  justify-content: center !important   ;
+  align-items: center !important;
+  cursor: pointer;
+  transition: 0.3s all ease;
+}
+
+.policy-product .owl-prev {
+  left: -4.5%!important;
+ 
+}
+
+.policy-product .owl-next {
+  right: -4.5%!important;
+ 
+}
+
+
+
+.policy-product .owl-next:hover{
+  background: red !important;
+}
+
+.policy-product .owl-prev:hover{
+  background: red !important;
+}
+
+.owl-theme .owl-nav [class*=owl-] {
+  font-size:24px;
+
+}

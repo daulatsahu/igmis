@@ -12,7 +12,31 @@
                 <legend class="scheduler-border"> Work Detail</legend>
                 <div class="control-group">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="inputfieldsize">
+                      <mat-label>Choose Project </mat-label>
+                      <mat-select formControlName="Project_ID" 
+                       (valueChange)="onChangeModule($event)">
+                       <mat-option value="" selected>Select Project</mat-option>
+                        <mat-option *ngFor="let c of project ;" [value]="c.Project_ID" >
+                          {{c.Project_name}}
+                        </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                      <mat-form-field appearance="outline" class="inputfieldsize">
+                          <mat-label>Choose Module </mat-label>
+                          <mat-select formControlName="project_module_id"
+                          (valueChange)="onChangeWork($event)">
+                          <mat-option value="" selected>Select Module</mat-option>
+                            <mat-option *ngFor="let c of ModuleData ;" [value]="c.project_module_id" >
+                              {{c.module_name}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+                <div class="col-md-3">
                   <mat-form-field appearance="outline" class="inputfieldsize">
                     <mat-label>Choose Work</mat-label>
                     <mat-select formControlName="Project_work_main_id">
@@ -22,7 +46,7 @@
                     </mat-select>
                 </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <mat-form-field appearance="outline" class="inputfieldsize">
                         <mat-label>
                          Detail Work Name
@@ -113,6 +137,14 @@
           <th mat-sort-header mat-header-cell *matHeaderCellDef> ID </th>
           <td mat-cell *matCellDef="let element">{{element.Project_work_detail_id}}</td>
         </ng-container>
+        <ng-container matColumnDef="Project_name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Project</th>
+            <td mat-cell *matCellDef="let element"> {{element.Project_name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="module_name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Module</th>
+            <td mat-cell *matCellDef="let element"> {{element.module_name}} </td>
+          </ng-container>
         <ng-container matColumnDef="Work_name">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Work</th>
             <td mat-cell *matCellDef="let element"> {{element.Work_name}} </td>

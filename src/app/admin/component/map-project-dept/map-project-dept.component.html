@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" id="addnews">
     <mat-card>
         <div class="container">
             <form [formGroup]="projectMapForm"   (ngSubmit)="onSubmit()">
@@ -120,7 +120,7 @@
           <ng-container matColumnDef="Action">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-icon-button color="primary" (click)="onedit(element.ID)">
+                <button mat-icon-button color="primary" (click)="onedit(element.ID); scrollToBottom()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="ondelete(element.ID)" >

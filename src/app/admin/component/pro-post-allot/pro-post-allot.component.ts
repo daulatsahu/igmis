@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ProPostAllotComponent  implements OnInit{
     
-    displayedColumns=['Project_post_allotment_ID','Project_name','Post_name','Financial_year','Start_date','End_date','Duration_in_days','Manpower_no','Description','Action'];
+    displayedColumns=['Project_post_allotment_ID','Project_name','Financial_name','Post_name','Start_date','End_date','Duration_in_days','Manpower_no','Description','Action'];
     dataSource!: MatTableDataSource<any>;
   
      @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -26,7 +26,7 @@ export class ProPostAllotComponent  implements OnInit{
       Description: [null, Validators.required],
       Duration_in_days: [null, Validators.required],
       Manpower_no: [null, Validators.required],
-      Financial_year: [null, Validators.required],
+      Financial_id: [null, Validators.required],
       Start_date: [null, Validators.required],
       End_date: [null, Validators.required],
     });
@@ -41,20 +41,36 @@ export class ProPostAllotComponent  implements OnInit{
   projectPostDataByid: any;
   projectType: any;
   post: any;
+  year: any;
   
-    constructor(private fb:FormBuilder, private ds : DataService, private datepipe: DatePipe){}
+    constructor(private fb:FormBuilder, private ds : DataService, private datepipe: DatePipe, private elementRef: ElementRef){}
   
     ngOnInit(): void {
    this.getTable()
   this.getPost()
   this.getProjectMap()
+ this. getYear()
     }
+
+// this is scroll function
+scrollToBottom(): void {
+  const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+  element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
 // get resource in dropdown
 getPost(){
   this.ds.getData('projectPostDetail/allpost').subscribe((result)=>{
     console.log(result);
     this.post=result;
+  })
+}
+
+// get resource in dropdown
+getYear(){
+  this.ds.getData('projectPostDetail/getFinancialYear').subscribe((result)=>{
+    console.log(result);
+    this.year=result;
   })
 }
 
@@ -99,6 +115,7 @@ if (this.data)
 alert("Data saved succesfully..")
 });
 this.getTable();
+this.onClear()
 }
 onClear(){
 this.projectPostForm.reset();
@@ -114,7 +131,7 @@ onedit(Project_post_allotment_ID: any){
    ({     
     End_date : this.datepipe.transform(this.projectPostForm.get("End_date")?.value, "yyyy-MM-dd"), 
     });
-
+    document.getElementById("addnews")?.scrollIntoView();
 this.projectPostDataByid = this.allprojectPostDetail.find((f : any) => f.Project_post_allotment_ID === parseInt(Project_post_allotment_ID)); 
 console.log(this.projectPostDataByid)
 this.iseditmode=true;
@@ -126,13 +143,21 @@ this.projectPostForm.patchValue
   Description:this.projectPostDataByid.Description,
   Duration_in_days:this.projectPostDataByid.Duration_in_days,
   Manpower_no:this.projectPostDataByid.Manpower_no,
-  Financial_year:this.projectPostDataByid.Financial_year,
+  Financial_id:this.projectPostDataByid.Financial_id,
   Start_date:this.projectPostDataByid.Start_date,
   End_date:this.projectPostDataByid.End_date,
 })
 }
 
 onupdate(){
+  this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+  ({     
+    Start_date : this.datepipe.transform(this.projectPostForm.get("Start_date")?.value, "yyyy-MM-dd"), 
+   });
+   this.projectPostForm.patchValue //this will help to set the date format (for storing in database)
+   ({     
+    End_date : this.datepipe.transform(this.projectPostForm.get("End_date")?.value, "yyyy-MM-dd"), 
+    });
  this.ds.putData('projectPostDetail/updateProjectPostDetail/' + this.data_id,this.projectPostForm.value).subscribe((result)=>{
   console.log(result);
   this.data= result

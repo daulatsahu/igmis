@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" id="addnews">
     <mat-card>
         <div class="container">
          <form [formGroup]="postMapForm"   (ngSubmit)="onSubmit()">
@@ -14,26 +14,37 @@
                 <legend class="scheduler-border">Employee Post Mapping </legend>
                 <div class="control-group">
                     <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="inputfieldsize">
-                                <mat-label>Choose Employee</mat-label>
-                                <mat-select formControlName="Emp_Id">
-                                  <mat-option *ngFor="let c of allemp ;" [value]="c.Emp_Id" >
-                                    {{c.Emp_First_Name_E}}
-                                  </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        <div class="col-md-4">
+                          <mat-form-field appearance="outline" class="inputfieldsize">
+                            <mat-label>Financial Year</mat-label>
+                            <mat-select matNativeControl formControlName="Financial_id"
+                                (valueChange)="onChangeFYear($event)">
+                                <mat-option  selected>Select Year</mat-option>
+                                <mat-option *ngFor="let year of FYear" [value]="year.Financial_id">
+                                    {{year.Financial_name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="inputfieldsize">
-                                <mat-label>Choose Post </mat-label>
-                                <mat-select formControlName="Post_id">
-                                  <mat-option *ngFor="let c of allPost ;" [value]="c.Post_id" >
-                                    {{c.Post_name}}
-                                  </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        <div class="col-md-4">
+                          <mat-form-field appearance="outline" class="inputfieldsize">
+                            <mat-label>Choose Post </mat-label>
+                            <mat-select formControlName="Post_id">
+                              <mat-option *ngFor="let c of post ;" [value]="c.Post_id">
+                                {{c.Post_name}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                         </div>
+                        <div class="col-md-4">
+                          <mat-form-field appearance="outline" class="inputfieldsize">
+                              <mat-label>Choose Employee</mat-label>
+                              <mat-select formControlName="Emp_Id">
+                                <mat-option *ngFor="let c of allemp ;" [value]="c.Emp_Id" >
+                                  {{c.Emp_First_Name_E}}
+                                </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
                     </div>
                     <div class="row">
                        <div class="col-md-3">
@@ -93,16 +104,16 @@
                     <mat-label *ngIf="iseditmode">edit your NOC</mat-label>&nbsp;
                     <mat-label *ngIf="!iseditmode"><strong>NOC upload</strong></mat-label>&nbsp;
                     <input  type="file" multiple #profile  (change)="selectimage($event)">
-                    <!-- <button type="button" (click)="submitfile()" id="tushil" *ngIf="iseditmode" >Upload</button> -->
-                    <button mat-raised-button color="primary" class=" btn btn-secondary btn-sm" (click)="submitfile()" type="button" >upload</button>
+                    <!-- <button type="button" (click)="submitfile()" id="tushil" *ngIf="iseditmode" >Upload</button> --> <br>
+                    <button mat-raised-button  class="mt-2" (click)="submitfile()" type="button" style="background-color: rgb(207, 112, 234);">upload</button>
                   <!-- </mat-form-field> -->
-                </div>  <div style="display: contents; ;"><img [src]="uploadedimage" alt="NOC DOC" style="width: 20%;border: 2px solidgrey"></div>
-              <br>
+                </div>
+                  <!-- <div style="display: contents; ;"><img [src]="uploadedimage" alt="NOC DOC" style="width: 20%;border: 2px solidgrey"></div> -->
+              <br><br>
               </div>
-
                 </div>
                
-                <div class="row">
+                <div class="row ">
                     <div class="col offset-5">
                         <button mat-raised-button  type="button" (click)="onClear()">
                             Clear
@@ -147,6 +158,10 @@
             <th mat-sort-header mat-header-cell *matHeaderCellDef> ID </th>
             <td mat-cell *matCellDef="let element">{{element.Map_post_emp_id}}</td>
           </ng-container>
+        <ng-container matColumnDef="Financial_name">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Financial Year </th>
+          <td mat-cell *matCellDef="let element">{{element.Financial_name}}</td>
+        </ng-container>
         <ng-container matColumnDef="Emp_First_Name_E">
           <th mat-sort-header mat-header-cell *matHeaderCellDef> Employee </th>
           <td mat-cell *matCellDef="let element">{{element.Emp_First_Name_E}}</td>
@@ -156,7 +171,7 @@
             <td mat-cell *matCellDef="let element"> {{element.Post_name}} </td>
           </ng-container>
 
-          Join_date','Appointment_order','Reliving_date','Reliving_order
+         
           <ng-container matColumnDef="Join_date">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Join Date</th>
             <td mat-cell *matCellDef="let element"> {{element.Join_date | date :'dd/MM/YYYY'}} </td>
@@ -188,7 +203,7 @@
           <ng-container matColumnDef="Action" stickyEnd="true">
             <th mat-sort-header mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-icon-button color="primary" (click)="onedit(element.Map_post_emp_id)">
+                <button mat-icon-button color="primary" (click)="onedit(element.Map_post_emp_id);scrollToBottom()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="ondelete(element.Map_post_emp_id)" >

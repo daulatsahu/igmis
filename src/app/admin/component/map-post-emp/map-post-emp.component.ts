@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -20,14 +20,14 @@ projectType: any;
 data:any;
 
   
-  displayedColumns=['Map_post_emp_id','Emp_First_Name_E','Post_name','Join_date','Appointment_order','Reliving_date','Reliving_order','Active_yn','Remark','NOC_reliving','Action'];
+  displayedColumns=['Map_post_emp_id','Financial_name','Post_name','Emp_First_Name_E','Join_date','Appointment_order','Reliving_date','Reliving_order','Active_yn','Remark','NOC_reliving','Action'];
   dataSource!: MatTableDataSource<any>;
 
    @ViewChild(MatPaginator) paginator!: MatPaginator ;
    @ViewChild(MatSort) MatSort!: MatSort ;
 
  postMapForm = this.fb.group({
-
+  Financial_id: [null, Validators.required],
   Emp_Id: [null, Validators.required],
   Post_id:[null, Validators.required],
   Remark: [null, Validators.required],
@@ -38,8 +38,6 @@ data:any;
   Appointment_order:[null, Validators.required],
   NOC_reliving:[null, Validators.required],
 
-
-   
   });
   postEmpMapDetail: any;
   MapDetaiDataByid: any;
@@ -50,18 +48,26 @@ data:any;
   uploadedimage:any 
   imageurl: null | undefined;
   images: any;
+  post: any;
+  FYear: any;
   
 
   
 
-  constructor(private fb:FormBuilder, private ds : DataService, private datepipe:DatePipe){}
+  constructor(private fb:FormBuilder, private ds : DataService, private datepipe:DatePipe, private elementRef: ElementRef){}
 
   ngOnInit(): void {
     this.getEmpMap()
-   this.getPostMap()
+  //  this.getPost()
    this.getTable()
-   
+   this.getYear()
   }
+
+// this is scroll function
+scrollToBottom(): void {
+  const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+  element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
 // mat Table filter
 applyFilter(event: Event) {
@@ -76,13 +82,19 @@ applyFilter(event: Event) {
     })
     }
 
-
-    getPostMap(){
-      this.ds.getData('map_post_emp/allpost').subscribe((result)=>{
-        console.log(result);  
-        this.allPost=result;
+    // this api calling also use in financial-post component  so both component use same api only for year and post calling
+    getYear(){
+      this.ds.getData('Financialyear_post/getFinancialYear').subscribe((result)=>{
+        console.log(result);
+        this.FYear=result;
       })
-      }
+    }
+
+    onChangeFYear(Financial_id: any) {
+      this.ds.getData('Financialyear_post/getPost/' + Financial_id).subscribe(res => {
+        this.post = res;
+      });
+    }
 
 // post Department Detail
 onSubmit(){
@@ -145,9 +157,11 @@ onedit(Map_post_emp_id: any){
   console.log(this.MapDetaiDataByid)
  this.iseditmode=true;
   this.data_id = Map_post_emp_id;
+  document.getElementById("addnews")?.scrollIntoView();
 
   this.postMapForm.patchValue
   ({
+    Financial_id:this.MapDetaiDataByid.Financial_id,
     Emp_Id:this.MapDetaiDataByid.Emp_Id,
    Post_id:this.MapDetaiDataByid.Post_id,
    Remark:this.MapDetaiDataByid.Remark,
@@ -162,6 +176,17 @@ onedit(Map_post_emp_id: any){
 }
 
 onupdate(){
+  this.postMapForm.patchValue //this will help to set the date format (for storing in database)
+  ({     
+    Join_date : this.datepipe.transform(this.postMapForm.get("Join_date")?.value, "yyyy-MM-dd"), 
+   });
+   this.postMapForm.patchValue //this will help to set the date format (for storing in database)
+   ({     
+    Reliving_date : this.datepipe.transform(this.postMapForm.get("Reliving_date")?.value, "yyyy-MM-dd"), 
+    });
+    this.postMapForm.patchValue({
+      NOC_reliving:this.imageurl
+    })
    this.ds.putData('map_post_emp/updategetMapPostEmp/' + this.data_id,this.postMapForm.value).subscribe((result)=>{
     console.log(result);
     this.data= result

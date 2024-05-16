@@ -5,6 +5,8 @@ import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private ds: DataService,private router: Router) { }
+
+  constructor(private http:HttpClient,private fb: FormBuilder, private ds: DataService, private AS: AuthService, private router: Router) { }
 
   loginForm!: FormGroup;
   @ViewChild('captchaContainer', { static: false }) dataContainer!: ElementRef;
@@ -22,11 +25,12 @@ export class LoginComponent implements OnInit {
   public passwordKey: any = environment.PASSWORD_SECRET_KEY;
   public txtCaptcha: any = '';
   public generatedCaptcha: any = "";
+  public Emp_Id: any = '';
   //subs = new SubSink();
 
   ngOnInit(): void {
     this.createForm();
-     this.getCaptcha();
+    this.getCaptcha();
   }
 
   createForm() {
@@ -36,99 +40,74 @@ export class LoginComponent implements OnInit {
       captcha: ['', Validators.required]
     });
   }
+  
   getCaptcha() {
-     this.ds.getData('captcha').subscribe((res: any) => {
+    this.ds.getData('captcha').subscribe((res: any) => {
       //if (res.error === false) {
-        this.dataContainer.nativeElement.innerHTML = res.data;
-        this.generatedCaptcha = res.text;
+      this.dataContainer.nativeElement.innerHTML = res.data;
+      this.generatedCaptcha = res.text;
       //}
     });
   }
 
+  sendData() {
+    this.AS.messageEmitter.emit({
+      "role": this.AS.currentUser.role,
+      "Emp_Id": this.AS.currentUser.Emp_Id, // Assuming 'username' represents the employee ID
+    });
+  }
+
+
   login() {
-    if (!this.loginForm.invalid) {
-
-      // const bytes = CryptoJS.AES.decrypt(this.generatedCaptcha, this.captchaKey);
-      // let txtCaptcha = bytes.toString(CryptoJS.enc.Utf8);
-      let txtCaptcha =this.generatedCaptcha;
-      console.log("txtCaptcha.....", this.generatedCaptcha);
-      console.log("Hello",this.loginForm.value.captcha);
-
+    if (this.loginForm.valid) {
+      // this.Emp_Id = this.loginForm.value.Emp_Id;
+      let txtCaptcha = this.generatedCaptcha;
       if (this.loginForm.value.captcha === txtCaptcha) {
-        
         const password = CryptoJS.AES.encrypt(this.loginForm.value.password, this.passwordKey);
         this.loginForm.patchValue({ password: `${password}` });
         console.log("this.loginForm.value", this.loginForm.value);
+        this.AS.userlogin(this.loginForm.value).subscribe(res => {
+          if (res.success) {
+            this.sendData();
+            Swal.fire(res.message, "", "success");
+            let role = this.AS.currentUser.role;
+            this.Emp_Id = this.AS.currentUser.Emp_Id;
+            console.log(this.Emp_Id);
+            switch (role) {
 
-         this.ds.postData('login', this.loginForm.value)
-          .subscribe((res: any) => {
-            console.log("pop",res);
-            if (res.error) {
-            Swal.fire(res.error.message, "", "error");
-            }
-            else if (res.token) {
-              localStorage.setItem('token', res.token);
-              Swal.fire(res.message, "", "success");
-
-
-              switch (res['Emp_Id']) {
-                case 1:
-                  {
-                    this.router.navigate(['/admin']);
-                    break;
-                  }
-                case 2: {
-                  this.router.navigate(['/hr']);
-                  break;
-                }
-                case 3: {
-                  this.router.navigate(['/employee']);
-                  break;
-                }
-                case 4: {
-                  this.router.navigate(['/employee']);
-                  break;
-                }
-                case 5: {
-                  this.router.navigate(['/employee']);
-                  break;
-                }
-                case 6: {
-                  this.router.navigate(['/employee']);
-                  break;
-                }
-                case 7: {
-                  this.router.navigate(['/employee']);
-                  break;
-                }
-                default:
-                  {
-                    Swal.fire({
-                      icon: 'error',
-                      text: 'कृपया लॉगिन विवरण जांचें',
-                      timer: 5000
-                    });
-                    break;
-                  }
+              case 1: {
+                this.router.navigate(['/admin']);
+                break;
               }
-              
-              //window.open('http://10.132.2.172/UFP/', "_blank");
+
+              case 2: {
+                this.router.navigate(['/hr']);
+                break;
+              }
+
+              case 3: {
+                this.router.navigate(['/employee']);
+                break;
+              }
+
+              default: this.router.navigate(['/login'])
             }
-          })
+          } else {
+             {
+              Swal.fire({ icon: 'error', text: "यूजर आईडी अथवा पासवर्ड गलत", timer: 1000 });
+              this.getCaptcha()
+              this.loginForm.reset();
+            }
 
-        // this.auth.userLogin(this.apiRootUrl + '/user/login', this.loginForm.value).subscribe((res: any) => {
-        //   console.log(res);
-        //   this.router.navigateByUrl('/process');
-
-        // })
+          }
+        })
+      }
+      else {
+        Swal.fire({ icon: 'error', text: "कृपया सही कैप्चा दर्ज करें |", timer: 1000 });
 
       }
-    } else {
-      console.log(777777777);
-    }
+     }
+
   }
 
-  // ngOnDestroy(): void {
-  //   this.subs.unsubscribe();
-// }
 }

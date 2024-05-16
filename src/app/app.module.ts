@@ -12,6 +12,14 @@ import { StartpageComponent } from './components/startpage/startpage.component';
 import { CollectModule } from './collect/collect.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HomeCardComponent } from './components/home-card/home-card.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { SharedModule } from './shared/shared.module';
+import { CardHomeComponent } from './components/card-home/card-home.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +28,12 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    StartpageComponent
+    StartpageComponent,
+    HomeCardComponent,
+    PortfolioComponent,
+    CardHomeComponent,
+    ContactUsComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +42,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CollectModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function tokenGetter() {
+          return localStorage.getItem('token')
+        }
+}
+})
   ],
   providers: [],
   bootstrap: [AppComponent]

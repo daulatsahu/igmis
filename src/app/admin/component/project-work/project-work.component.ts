@@ -49,7 +49,7 @@ project: any;
   ngOnInit(): void {
 this.getTable();
 this.getProject()
-this.getModule()
+// this.getModule()
   }
 
 // get Project in dropdown
@@ -59,13 +59,22 @@ getProject(){
     this.project=result;
   })
 }
+
 // get module in dropdown
-getModule(){
-  this.ds.getData('ProjectWork/allmodulemap').subscribe((result)=>{
+onChangeModule(Project_id:any){
+  this.ds.getData('ProjectWork/allmodulemap/' + Project_id).subscribe((result)=>{
     console.log(result);
     this.ModuleData=result;
   })
 }
+
+// onChangeDistrict(Dist_Id: any) {
+//   this.ds.getData('Employee_data/Districtname/' + Dist_Id).subscribe(res => {
+//     this.Block = res;
+//   });
+// }
+
+
 
 // Show data in Mat Table
 getTable(){
@@ -116,6 +125,8 @@ onedit(Project_work_main_id: any){
   this.WorkDataByid = this.projectWorkDetail.find((f : any) => f.Project_work_main_id === parseInt(Project_work_main_id)); 
   console.log(this.WorkDataByid)
  this.iseditmode=true;
+ document.getElementById("addnews")?.scrollIntoView();
+
   this.data_id = Project_work_main_id;
   this.projrctWorkForm.patchValue
   ({

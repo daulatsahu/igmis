@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -39,7 +39,7 @@ data:any;
   data_id: any;
   iseditmode: boolean =false
 
-  constructor(private fb:FormBuilder, private ds : DataService){}
+  constructor(private fb:FormBuilder, private ds : DataService, private elementRef: ElementRef){}
 
   ngOnInit(): void {
     this.getDepartmentMap()
@@ -48,7 +48,11 @@ data:any;
    
   }
 
-  
+ // this is scroll function
+ scrollToBottom(): void {
+  const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+  element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+} 
 
 // mat Table filter
 applyFilter(event: Event) {
@@ -104,7 +108,7 @@ ondelete(Dept_ID: any){
   this.MapDetaiDataByid = this.projectMapDetail.find((f : any) => f.Dept_ID === parseInt(Dept_ID)); //here we matching and extracting the selected id
   console.log(this.MapDetaiDataByid)
   this.data_id = Dept_ID;
-  this.ds.deleteDataservice('deleteMapdataByid/'+this.data_id,).subscribe((result)=>{
+  this.ds.deleteDataservice('map_dept_project/deleteMapdataByid/'+this.data_id,).subscribe((result)=>{
   console.log(result);
   this.data= result
 
@@ -121,7 +125,7 @@ onedit(ID: any){
   console.log(this.MapDetaiDataByid)
  this.iseditmode=true;
   this.data_id = ID;
-
+  document.getElementById("addnews")?.scrollIntoView();
   this.projectMapForm.patchValue
   ({
     Project_ID:this.MapDetaiDataByid.Project_ID,
@@ -133,7 +137,7 @@ onedit(ID: any){
 }
 
 onupdate(){
-   this.ds.updateMapData('updateMapProDetail/' + this.data_id,this.projectMapForm.value).subscribe((result)=>{
+   this.ds.putData('map_dept_project/updateMapProDetail/' + this.data_id,this.projectMapForm.value).subscribe((result)=>{
     console.log(result);
     this.data= result
 

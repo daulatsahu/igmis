@@ -95,6 +95,8 @@ this.projectPostDataByidd = this.allprojectPostDetail.find((f : any) => f.projec
 console.log(this.projectPostDataByidd)
 this.iseditmode=true;
 this.data_id = project_module_id;
+document.getElementById("addnews")?.scrollIntoView();
+
 this.project_moduleform.patchValue
 ({
   module_name:this.projectPostDataByidd.module_name,

@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ProjectWorkDetailComponent implements OnInit{
 
-  displayedColumns=['Project_work_detail_id','Work_name','Detail_work_name','Start_date','End_date','Description','remark','Action'];
+  displayedColumns=['Project_work_detail_id','Project_name','module_name','Work_name','Detail_work_name','Start_date','End_date','Description','remark','Action'];
   dataSource!: MatTableDataSource<any>;
 
    @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -23,6 +23,8 @@ export class ProjectWorkDetailComponent implements OnInit{
 
    projectWorkDetailForm = this.fb.group({
 
+    Project_ID:[null, Validators.required],
+    project_module_id:[null, Validators.required],
     Project_work_main_id: [null, Validators.required],
     Detail_work_name:[null, Validators.required],
     Description:[null, Validators.required],
@@ -44,22 +46,40 @@ UnitData: any;
   ModuleData: any;
   projectwork: any;
   projectWorkDetaildata: any;
+  project: any;
   
 
   constructor(private fb:FormBuilder, private ds:DataService, private datepipe: DatePipe){}
   ngOnInit(): void {
 this.getTable();
-this.getProjectwork()
-
+// this.getProjectwork()
+this.getProject()
   }
 
+
 // get Project in dropdown
-getProjectwork(){
-  this.ds.getData('projectWorkDetail/getProjectWork').subscribe((result)=>{
+getProject(){
+  this.ds.getData('projectWorkDetail/allProjectmap').subscribe((result)=>{
+    console.log(result);
+    this.project=result;
+  })
+}
+// get module in dropdown
+onChangeModule(Project_id:any){
+  this.ds.getData('projectWorkDetail/allmodulemap/' + Project_id).subscribe((result)=>{
+    console.log(result);
+    this.ModuleData=result;
+  })
+}
+
+// get work in dropdown
+onChangeWork(project_module_id:any){
+  this.ds.getData('projectWorkDetail/allWork/' + project_module_id).subscribe((result)=>{
     console.log(result);
     this.projectwork=result;
   })
 }
+
 
 // Show data in Mat Table
 getTable(){
@@ -96,6 +116,7 @@ this.ds.postData('projectWorkDetail/PostProjectWorkDetail',this.projectWorkDetai
   alert("Data saved succesfully..")
 });
 this.getTable();
+this.onClear()
 }
 onClear(){
   this.projectWorkDetailForm.reset();
@@ -111,6 +132,8 @@ onedit(Project_work_detail_id: any){
   this.data_id = Project_work_detail_id;
   this.projectWorkDetailForm.patchValue
   ({
+    Project_ID:this.WorkDataByid.Project_ID,
+    project_module_id:this.WorkDataByid.project_module_id,
     Project_work_main_id:this.WorkDataByid.Project_work_main_id,
     Detail_work_name:this.WorkDataByid.Detail_work_name,
     Description:this.WorkDataByid.Description,

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -42,13 +42,18 @@ export class AddProjectComponent implements OnInit{
   projectType: any;
 
 
-  constructor(private fb:FormBuilder, private ds : DataService){}
+  constructor(private fb:FormBuilder, private ds : DataService, private elementRef: ElementRef){}
 
   ngOnInit(): void {
     this.getDepartment()
     this.getTable()
     this.getProjectType()
   }
+// this is scroll function
+scrollToBottom(): void {
+  const element = this.elementRef.nativeElement.querySelector('#endOfPage');
+  element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
 
   
@@ -105,7 +110,7 @@ onedit(Project_ID: any){
   console.log(this.projectDataByid)
  this.iseditmode=true;
   this.data_id = Project_ID;
-
+  document.getElementById("addnews")?.scrollIntoView();
   this.projectDetailForm.patchValue
   ({
     Project_name:this.projectDataByid.Project_name,
@@ -120,11 +125,9 @@ onedit(Project_ID: any){
 // Update Project data
 
 onupdate(){
- 
-   this.ds.updateData('updateProjectDetail/' + this.data_id,this.projectDetailForm.value).subscribe((result)=>{
+   this.ds.putData('projectDetail/updateProjectDetail/' + this.data_id,this.projectDetailForm.value).subscribe((result)=>{
     console.log(result);
     this.data= result
-
   if(this.data)
   {Swal.fire("data updated successfully")};
   this.getTable();
